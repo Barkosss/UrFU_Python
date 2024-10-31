@@ -27,7 +27,7 @@ def long_division(dividend: int, divider: int) -> str:
             quotient = remains // divider
             remains = remains % divider
             fraction += str(quotient)
-            strResult += (" " * countSpace) + f"{negativeFlagDivider * quotient * divider} | {fraction}\n"
+            strResult += (" " * countSpace) + f"{quotient * divider} | {fraction}\n"
             countSpace = len(str(quotient * divider)) - len(str(remains))
 
             # If the dividend is less than the divider, then multiply by 10,
@@ -45,7 +45,7 @@ def long_division(dividend: int, divider: int) -> str:
     while remains >= divider:
         quotient = remains // divider
         remains = remains % divider
-        strResult += (" " * countSpace) + f"{negativeFlagDivider * quotient * divider} | {dividend // divider}\n"
+        strResult += (" " * countSpace) + f"{quotient * divider} | {dividend // divider}\n"
         countSpace = len(str(quotient * divider)) - len(str(remains))
 
     strResult += (" " * countSpace) + f"{negativeFlagDivider * remains}\n"
@@ -60,8 +60,8 @@ def main():
                  [246001, 123], [123456789, 531], [425934261694251, 12345678],
                  [15, 2], [100, 33], [10000, 33],
                  [10, 20], [100, 400], [25, 400],
-                 [10, 200], [10, 200], [100, 2000],
-                 [10, 2000]]
+                 [10, 200], [10, 200], [100, -2000],
+                 [-10, 2000]]
 
     for dividend, divider in arrValues:
         print(long_division(dividend=dividend, divider=divider), end="\n")
