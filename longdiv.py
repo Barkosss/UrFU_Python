@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
 def long_division(dividend: int, divider: int) -> str:
+    if dividend == 0 or divider == 0:
+        return f'{dividend} | {divider}\n{"-" * (len(str(dividend) + str(divider)) + 4)}\n0\n'
+
     origDividend: int = dividend
     origDivider: int = divider
 
@@ -61,7 +64,7 @@ def main():
                  [15, 2], [100, 33], [10000, 33],
                  [10, 20], [100, 400], [25, 400],
                  [10, 200], [10, 200], [100, -2000],
-                 [-10, 2000]]
+                 [-10, 2000], [10, 0], [0, 10]]
 
     for dividend, divider in arrValues:
         print(long_division(dividend=dividend, divider=divider), end="\n")
