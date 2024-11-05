@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import unittest
 
-from statistics import *
+from main import *
 
 
 class TestStatistics(unittest.TestCase):
@@ -21,7 +21,6 @@ class TestStatistics(unittest.TestCase):
 
     def setUp(self):
         self._stat = make_stat('statistics.html')
-        print(self._stat)
         self._cmp = lambda a, b: a[1] >= b[1]
 
     def test_extract_years(self):
