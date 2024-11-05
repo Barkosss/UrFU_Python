@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-from asyncio import start_server
 from itertools import chain
-
-from debian.debtags import reverse
-
 
 def check_sex(name: str, male: bool = False, female: bool = False):
 
