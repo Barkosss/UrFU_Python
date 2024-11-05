@@ -6,7 +6,7 @@ def make_stat(file_name: str) -> dict:
     """
     Функция вычисляет статистику по именам за каждый год с учётом пола.
     """
-    with open(file_name) as file:
+    with open(file_name, encoding="cp1251") as file:
         lines = file.readlines()
         years_names = {}
 
@@ -198,12 +198,5 @@ def extract_year_female(stat: dict, year: str) -> list:
 
 
 if __name__ == '__main__':
-    filename: str = "stat.html"
-
+    filename: str = "statistics.html"
     stats: dict = make_stat(filename)
-    #stat_extract_years: list = extract_years(stats)) # Done
-    #print("extract_general:" + str(extract_general(stats))) # Done
-    #print("extract_general_male: " + str(extract_general_male(stats))) # Done
-    #print("extract_year: " + str(extract_year(stats, "2005"))) # Done
-    #print("extract_year_male: " + str(extract_year_male(stats, "2009"))) #Done
-    #print("extract_year_female: " + str(extract_year_female(stats, "2004"))) #Done
