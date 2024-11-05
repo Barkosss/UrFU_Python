@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import stat as t
+from HW2 import stat as t
 import unittest
 
 class TestStatistics(unittest.TestCase):
