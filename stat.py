@@ -117,7 +117,18 @@ def extract_year(stat: dict, year: int) -> list:
     имён в указанном году.
     Список должен быть отсортирован по убыванию количества.
     """
-    pass
+    if year not in stat.keys():
+        return []
+
+    stat_year = stat[year]
+
+    extract_year_tuple = tuple(chain.from_iterable(stat_year.items()))
+
+    extract_year_list = [(extract_year_tuple[index], extract_year_tuple[index + 1])
+                      for index in range(0, len(extract_year_tuple), 2)]
+
+    print("extract_year_list: " + extract_year_list)
+    return extract_year_list
 
 
 def extract_year_male(stat: dict, year: int) -> list:
@@ -146,3 +157,4 @@ if __name__ == '__main__':
     stat_extract_years: list = extract_years(stats)
     extract_general(stats)
     extract_general_male(stats)
+    extract_year(stats, 2014)
