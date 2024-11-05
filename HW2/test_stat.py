@@ -19,7 +19,7 @@ class TestStatistics(unittest.TestCase):
             self.assertIn(i, b)
 
     def setUp(self):
-        self._stat = t.make_stat('home.html')
+        self._stat = t.make_stat('stat.html')
         self._cmp = lambda a, b: a[1] >= b[1]
 
     def test_extract_years(self):

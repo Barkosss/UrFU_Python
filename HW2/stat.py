@@ -150,7 +150,7 @@ def extract_year_male(stat: dict, year: str) -> list:
                          'л', 'м', 'н', 'п',
                          'р', 'с', 'т', 'ф',
                          'х', 'ц', 'ч', 'ш', 'щ']
-    exceptions_names = ["никита"]
+    exceptions_names = ["никита", "илья", "данила"]
     name_count = {}
     year_dict = stat[year]
 
