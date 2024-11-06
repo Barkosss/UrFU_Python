@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from itertools import chain
 
-
 def check_sex(name: str, male: bool = False, female: bool = False):
     if male:
         consonant_letters = ['б', 'в', 'г', 'д',

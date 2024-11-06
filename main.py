@@ -1,5 +1,6 @@
-for _ in range(10):
-    if _ > 5:
-        break
-else:
-    print("break")
+func = []
+for degree in range(10):
+    pass
+
+for f in func:
+    print(f(2))
