@@ -19,8 +19,10 @@ def check_sex(name: str, male: bool = False, female: bool = False):
         additional_names = ["любовь"]
         exceptions_names = ["никита", "илья", "данила", "лёва", "алехандро"]
 
-        return True if ((name[-1] in vowel_letters or name.lower() in additional_names)
-                        and name.lower() not in exceptions_names) else False
+        return (
+                (name[-1] in vowel_letters or name.lower() in additional_names)
+                and name.lower() not in exceptions_names
+        )
 
 
 def make_stat(file_name: str) -> dict:
