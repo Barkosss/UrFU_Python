@@ -1,13 +1,9 @@
 MaxN = 101
 
 k = color = usedColor = []
-for i in range(101):
+for i in range(MaxN):
     k.append([0] * 101)
-
-for i in range(101):
     color.append([0] * 101)
-
-for i in range(101):
     usedColor.append([0] * 3)
 n = 0
 
@@ -75,9 +71,9 @@ def out():
     ans = ''
     for i in range(1, n + 1):
         for j in range(1, k[i][0] + 1):
-            if(color[i][j]==1):
+            if color[i][j] == 1:
                 ans += "Y "
-            elif(color[i][j] == 2):
+            elif color[i][j] == 2:
                 ans += "G "
         ans += '\n'
     print(ans)
