@@ -63,7 +63,7 @@ def read():
 def out():
     answer = ''
     for row in range(1, matrix_size + 1):
-        for column in range(1, color_doors[i][0] + 1):
+        for column in range(1, color_doors[row][0] + 1):
             if color[row][column] == 1:
                 answer += "Y "
             elif color[row][column] == 2:

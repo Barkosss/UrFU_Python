@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import re
 
 try:
     import httpx
@@ -14,30 +15,38 @@ def get_content(name):
     Функция возвращает содержимое вики-страницы name из русской Википедии.
     В случае ошибки загрузки или отсутствия страницы возвращается None.
     """
-    pass
+    content = httpx.get(f"https://ru.wikipedia.org/wiki/{name}").text
+    return content
 
 
 def extract_content(page):
     """
     Функция принимает на вход содержимое страницы и возвращает 2-элементный
-    tuple, первый элемент которого - номер позиции, с которой начинается
+    tuple, первый элемент - номер позиции, с которой начинается
     содержимое статьи, второй элемент — номер позиции, на котором заканчивается
     содержимое статьи.
     Если содержимое отсутствует, возвращается (0, 0).
     """
-    pass
+    start_content = page.find(re.findall(r"<div class=\"mw-content-ltr.*?>", page)[0])
+    end_content = page.find(re.findall(r"<div id=\"mw-navigation\">", page)[0])
+    return start_content, end_content
 
 
-def extract_links(page, begin, end):
+# ПРОБЛЕМНАЯ
+def extract_links(page: str, begin: int, end: int):
     """
     Функция принимает на вход содержимое страницы и начало и конец интервала,
     задающего позицию содержимого статьи на странице и возвращает все имеющиеся
     ссылки на другие вики-страницы без повторений и с учётом регистра.
     """
-    pass
+    links = []
+    for line in page[begin:end].splitlines():
+        links.append(re.findall('"(?P<url>https?://[^\s]]+)"', line))
+    print(links)
+    return links
 
 
-def find_chain(start, finish):
+def find_chain(start: int, finish: int):
     """
     Функция принимает на вход название начальной и конечной статьи и возвращает
     список переходов, позволяющий добраться из начальной статьи в конечную.
@@ -48,7 +57,10 @@ def find_chain(start, finish):
 
 
 def main():
-    pass
+    content = get_content("Вулкан")
+    indexs = extract_content(content)
+    print(content)
+    print(extract_links(content, indexs[0], indexs[1]))
 
 
 if __name__ == '__main__':
