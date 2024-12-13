@@ -41,7 +41,6 @@ class TarParser:
 
         try:
             self.tar = tarfile.open(filename, mode="r")
-            # TODO: [Errno 13] Permission denied: 'NSimulator'
         except tarfile.TarError as err:
             raise ValueError(f"File is not found: {err}")
 
@@ -94,7 +93,6 @@ class TarParser:
         """
 
         if filename in self.files:
-            print("ValueError")
             raise ValueError(filename)
 
         try:
