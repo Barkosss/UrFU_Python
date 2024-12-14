@@ -2,7 +2,6 @@
 
 import sys
 import math
-import numpy as np
 
 
 def f0():
@@ -18,8 +17,7 @@ def f2():
 
 
 def f3():
-    np.seterr(invalid="raise")
-    result = np.log(-1)
+    raise FloatingPointError
 
 def f4():
     bit_number = math.exp(10000)
@@ -71,11 +69,7 @@ def f13():
 
 
 def f14():
-    dict = {
-        'a': 1,
-        'error': 2
-        'c': 3
-    }
+    exec("if True print('Hello')")
 
 
 def f15():
