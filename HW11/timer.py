@@ -6,7 +6,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        self.setWindowTitle("Timer")
+        self.setWindowTitle("Timer & Clock")
 
         buttonStartTimer = QPushButton("Start")
 
