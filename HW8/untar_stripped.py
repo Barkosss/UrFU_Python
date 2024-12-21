@@ -1,15 +1,10 @@
 #!/usr/bin/env python3
 
-import tarfile
 import argparse
 import os.path
-import time
-import struct
-import sys
 import re
-from pathlib import Path
-
-from netaddr.strategy.ipv6 import max_word
+import sys
+import tarfile
 
 
 class TarParser:
@@ -41,21 +36,28 @@ class TarParser:
         Открывает tar-архив 'filename' и производит его предобработку
         (если требуется)
         """
-        self._filename = filename
-        self.files = None
-        self.tar_file
+        self.filename = filename
+        self.tar = None
 
-        ### TODO
+        try:
+            self.tar = tarfile.open(filename, mode="r")
+        except tarfile.TarError as err:
+            raise ValueError(f"File is not found: {err}")
 
     def extract(self, dest=os.getcwd()):
         """
         Распаковывает данный tar-архив в каталог 'dest'
         """
 
-        with tarfile.open(self._filename, "r") as tar:
-            # Получаем список файлов
-            self.files = tar.getnames()
+        if self.tar is None:
+            raise ValueError("File is not found")
 
+        try:
+            self.tar.extractall(path=dest, filter=None)
+        except tarfile.TarError as err:
+            raise ValueError(f"File extract error: {err}")
+        except PermissionError as err:
+            pass
 
     def files(self):
         """
@@ -63,14 +65,12 @@ class TarParser:
         """
 
         filename_list = []
-        print(self.files)
-        for file in self.files:
+        for file in self.tar:
             if re.findall(r"\w+\.[a-z]+", file.name):
                 filename_list.append(file.name)
 
         return filename_list
 
-        ### TODO
 
     def file_stat(self, filename):
         """
@@ -93,27 +93,25 @@ class TarParser:
         """
 
         if filename in self.files:
-            print("ValueError")
             raise ValueError(filename)
 
+        try:
+            tar = tarfile.TarInfo(filename)
+            info = [('Filename', filename),
+                    ("Type", tar.type),
+                    ("Mode", tar.mode),
+                    ("UID", tar.uid),
+                    ("GID", tar.gid),
+                    ("Size", tar.size),
+                    ("Modification time", tar.mtime),
+                    ("Checksum", tar.chksum),
+                    ("User name", tar.uname),
+                    ("Group name", tar.gname)
+                    ]
 
-        print(5)
-        tar = tarfile.TarInfo(filename)
-        info = [('Filename', filename),
-                ("Type", tar.type),
-                ("Mode", tar.mode),
-                ("UID", tar.uid),
-                ("GID", tar.gid),
-                ("Size", tar.size),
-                ("Modification time", tar.mtime),
-                ("Checksum", tar.chksum),
-                ("User name", tar.uname),
-                ("Group name", tar.gname)
-                ]
-
-        print(6)
-        print("file_stat")
-        return iter(info)
+            return info
+        except tarfile.TarError as err:
+            pass
 
 
 def print_file_info(stat, f=sys.stdout):
@@ -147,17 +145,12 @@ def main():
 
         if args.info:
             for fn in tar.files():
-                print(fn)
-                tar.file_stat(fn)
-                print(3)
                 print_file_info(tar.file_stat(fn))
-                print(2)
                 print()
+
         elif args.ls:
-            print("---------- FILES ----------")
             for fn in tar.files():
                 print(fn)
-            print("---------- FILES ----------")
 
     except Exception as err:
         sys.exit(err)

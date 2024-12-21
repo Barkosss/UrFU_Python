@@ -1,74 +1,84 @@
 #!/usr/bin/env python
 
 import sys
+import math
 
 
 def f0():
-    raise BaseException
+    x = 1 / 0
 
 
 def f1():
-    raise Exception
+    res = "false" * "false"
 
 
 def f2():
-    raise ArithmeticError
+    x = 1 / 0
 
 
 def f3():
     raise FloatingPointError
 
-
 def f4():
-    raise OverflowError
+    bit_number = math.exp(10000)
 
 
 def f5():
-    raise ZeroDivisionError
+    x = 0 / 0
 
 
 def f6():
-    raise AssertionError
+    assert True == False
 
 
 def f7():
-    raise AttributeError
+    class User:
+        def __init__(self, username, id):
+            self.username = username
+            self.id = id
+    
+    user = User("Barkos", 0)
+    user_flag = user.flag
 
 
 def f8():
-    raise EnvironmentError
+    file = open("environmenterror.file", "r")
 
 
 def f9():
-    raise ImportError
+    import BarkosLibrary
 
 
 def f10():
-    raise LookupError
+    fruit_dict = {'apple': 120, 'banana': 50, 'pear': 10, 'manigo': 0}
+    fruit_dict['blackberry']
 
 
 def f11():
-    raise IndexError
+    array = [1, 2, 3, 4]
+    element = array[10]
 
 
 def f12():
-    raise KeyError
+    dict = {'a': 1, 'b': 2, 'c': 3}
+    element = dict['error']
 
 
 def f13():
-    raise NameError
+    print(not_found_variable)
 
 
 def f14():
-    raise SyntaxError
+    exec("if True print('Hello')")
 
 
 def f15():
-    raise ValueError
+    int("false")
 
 
 def f16():
-    raise UnicodeError
+    code = "Привет ошибка!"
+    encode_code = code.encode("ascii")
 
 
 def check_exception(f, exception):
