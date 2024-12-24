@@ -6,7 +6,7 @@ from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtWidgets import (QApplication, QPushButton, QWidget, QVBoxLayout, QHBoxLayout,
                              QLabel, QMainWindow, QDateTimeEdit, QFileDialog)
 
-
+# TODO: Добавить поля для ввода: Годов, месяцев, недель, дней, часов, минут и секунд
 class MainWindow(QMainWindow):
 
     def __init__(self):
@@ -44,6 +44,7 @@ class MainWindow(QMainWindow):
         # Время и текст
         self.time_label = QLabel("0 Seconds", self)
         self.date_time = QDateTimeEdit(datetime.datetime.now())
+        self.date_time.setDisplayFormat("dd-MM-yyyy HH:mm:ss")
         self.time_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.time_label.setStyleSheet("font-size: 32px;")
         layout.addWidget(self.time_label)
@@ -188,7 +189,6 @@ class MainWindow(QMainWindow):
                 try:
                     if target_time > current_time:
                         # Время до выбранной даты
-                        print(f"target_time={target_time}")
                         self.time_clock = current_time.secsTo(target_time)
                         self.is_running = True
                         # Таймер срабатывает каждую секунду
