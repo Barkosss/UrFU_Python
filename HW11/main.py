@@ -1,10 +1,11 @@
 import datetime
 import sys
 
-from PyQt6.QtCore import Qt, QDateTime, QTimer, QUrl, QSize
+from PyQt6.QtCore import Qt, QDateTime, QTimer, QUrl
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtWidgets import (QApplication, QPushButton, QWidget, QVBoxLayout, QHBoxLayout,
                              QLabel, QMainWindow, QDateTimeEdit, QFileDialog)
+
 
 class MainWindow(QMainWindow):
 
@@ -14,10 +15,6 @@ class MainWindow(QMainWindow):
         # Окно
         self.setWindowTitle("Stopwatch")
         self.setFixedSize(600, 400)
-        #self.setMinimumHeight(400)
-        #self.setMaximumHeight(400)
-        #self.setMinimumWidth(400)
-        #self.setMaximumWidth(600)
 
         # Поля
         self.time_clock = 60
@@ -132,7 +129,7 @@ class MainWindow(QMainWindow):
                 self.setMaximumWidth(400)
                 self.resize(400, 400)
 
-            if self.time_clock > 0:
+            if self.time_clock >= 0:
                 self.time_clock -= 1
                 self.time_label.setText(formatter_time)
             else:
@@ -191,6 +188,7 @@ class MainWindow(QMainWindow):
                 try:
                     if target_time > current_time:
                         # Время до выбранной даты
+                        print(f"target_time={target_time}")
                         self.time_clock = current_time.secsTo(target_time)
                         self.is_running = True
                         # Таймер срабатывает каждую секунду
@@ -229,9 +227,6 @@ class MainWindow(QMainWindow):
         """Установка звука для уведомления"""
         try:
             # Открыть диалог выбора файла
-            # TODO: Менять иконку и добавить название аудио
-            # TODO: Добавлять новую красную кнопку поверх установочной. Красная кнопка будет удалять аудио-файл
-            # TODO: Установочную кнопку менять цвет на синий
             file_path, _ = QFileDialog.getOpenFileName(self, "Выберите аудиофайл", "",
                                                        "Audio Files (*.mp3 *.wav *.ogg)")
             if file_path:
