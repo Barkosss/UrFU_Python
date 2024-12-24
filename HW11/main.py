@@ -4,7 +4,7 @@ import sys
 from PyQt6.QtCore import Qt, QDateTime, QTimer, QUrl
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtWidgets import (QApplication, QPushButton, QWidget, QVBoxLayout, QHBoxLayout,
-                             QLabel, QMainWindow, QDateTimeEdit, QFileDialog)
+                             QLabel, QMainWindow, QDateTimeEdit, QFileDialog, QSpinBox)
 
 # TODO: Добавить поля для ввода: Годов, месяцев, недель, дней, часов, минут и секунд
 class MainWindow(QMainWindow):
@@ -43,12 +43,86 @@ class MainWindow(QMainWindow):
 
         # Время и текст
         self.time_label = QLabel("0 Seconds", self)
-        self.date_time = QDateTimeEdit(datetime.datetime.now())
-        self.date_time.setDisplayFormat("dd-MM-yyyy HH:mm:ss")
         self.time_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.time_label.setStyleSheet("font-size: 32px;")
+
+        self.date_time = QDateTimeEdit(datetime.datetime.now())
+        self.date_time.setDisplayFormat("dd-MM-yyyy HH:mm:ss")
+        self.date_time.setStyleSheet("""
+            QDateTimeEdit {
+                font-size: 24px;           /* Крупный текст */
+                color: white;             /* Белый текст */
+                background-color: black;  /* Чёрный фон */
+                border: 2px solid white;  /* Белая рамка */
+                border-radius: 8px;       /* Скруглённые углы */
+                padding: 10px;            /* Внутренний отступ */
+            }
+            QDateTimeEdit::up-button, QDateTimeEdit::down-button {
+                width: 30px;              /* Ширина кнопок */
+                background-color: white;  /* Белый фон кнопок */
+                border: none;             /* Убираем рамку */
+                color: black
+            }
+            QDateTimeEdit::up-arrow {
+                width: 20px;              /* Размер стрелки */
+                height: 20px;
+                color: black;
+                content: "^"; /* Задайте путь к иконке или используйте стандартную */
+            }
+            QDateTimeEdit::down-arrow {
+                width: 20px;              /* Размер стрелки */
+                height: 20px;
+                color: black;
+                content: "v"; /* Задайте путь к иконке или используйте стандартную */
+            }
+            QDateTimeEdit::up-button:hover, QDateTimeEdit::down-button:hover {
+                background-color: lightgray; /* Цвет кнопки при наведении */
+            }
+            QDateTimeEdit::drop-down {
+                border-left: 1px solid white; /* Разделительная линия между кнопками */
+            }
+        """)
+        self.date_time.setFixedHeight(60)  # Высота поля
+        self.date_time.setMinimumWidth(300)  # Минимальная ширина поля
+
         layout.addWidget(self.time_label)
         layout.addWidget(self.date_time)
+
+        # Поля ввода
+        self.year_box = QSpinBox(self) # Год
+        self.year_box.setRange(datetime.datetime.now().year, 3000)
+        self.year_box.setValue(datetime.datetime.now().year)
+        layout.addWidget(self.year_box)
+
+        self.month_box = QSpinBox(self) # Месяц
+        self.month_box.setRange(0, 12)
+        self.month_box.setValue(0)
+        layout.addWidget(self.month_box)
+
+        self.week_box = QSpinBox(self) # Неделя
+        self.week_box.setRange(0, 4)
+        self.week_box.setValue(0)
+        layout.addWidget(self.week_box)
+
+        self.day_box = QSpinBox(self) # Дни
+        self.day_box.setRange(0, 31)
+        self.day_box.setValue(0)
+        layout.addWidget(self.day_box)
+
+        self.hour_box = QSpinBox(self) # Часы
+        self.hour_box.setRange(0, 24)
+        self.hour_box.setValue(0)
+        layout.addWidget(self.hour_box)
+
+        self.minute_box = QSpinBox(self) # Минуты
+        self.minute_box.setRange(0, 60)
+        self.minute_box.setValue(0)
+        layout.addWidget(self.minute_box)
+
+        self.second_box = QSpinBox(self) # Секунды
+        self.second_box.setRange(0, 60)
+        self.second_box.setValue(0)
+        layout.addWidget(self.second_box)
 
         # Кнопки
         self.button_start = QPushButton("Start")  # Начать таймер
