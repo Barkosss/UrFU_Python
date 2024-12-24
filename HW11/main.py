@@ -14,11 +14,9 @@ class MainWindow(QMainWindow):
         # Окно
         self.setWindowTitle("Stopwatch")
         self.setMinimumHeight(400)
-        self.setMaximumHeight(400)
+        self.setMaximumHeight(500)
         self.setMinimumWidth(400)
-        self.setMaximumWidth(800)
-        self.setGeometry(400, 400, 400, 400)
-        self.window = self
+        self.setMaximumWidth(400)
 
         # Поля
         self.time_clock = 60
@@ -115,11 +113,7 @@ class MainWindow(QMainWindow):
         """Обновление времени"""
         try:
             formatter_time = self.format_time(self.time_clock)
-
-            if len(formatter_time) >= 26:
-                self.resize(len(formatter_time) * 400, 400)
-            else:
-                self.resize(400, 400)
+            # TODO: Изменять размер
             if self.time_clock > 0:
                 self.time_clock -= 1
                 self.time_label.setText(formatter_time)
@@ -153,7 +147,7 @@ class MainWindow(QMainWindow):
                     result.append(f"{time} {name}")
                 seconds %= unit_seconds
 
-            return " ".join(result)
+            return "\n".join(result)
         except Exception as err:
             print(f"ERROR | Format time: {err}")
 
@@ -217,6 +211,7 @@ class MainWindow(QMainWindow):
         """Установка звука для уведомления"""
         try:
             # Открыть диалог выбора файла
+            # TODO: Менять иконку и добавить название аудио
             file_path, _ = QFileDialog.getOpenFileName(self, "Выберите аудиофайл", "",
                                                        "Audio Files (*.mp3 *.wav *.ogg)")
             if file_path:
