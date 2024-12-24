@@ -113,7 +113,7 @@ class MainWindow(QMainWindow):
         """Обновление времени"""
         try:
             formatter_time = self.format_time(self.time_clock)
-            # TODO: Изменять размер
+            # TODO: Динамическое изменение размера
             if self.time_clock > 0:
                 self.time_clock -= 1
                 self.time_label.setText(formatter_time)
