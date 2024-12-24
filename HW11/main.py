@@ -14,7 +14,7 @@ class MainWindow(QMainWindow):
         # Окно
         self.setWindowTitle("Stopwatch")
         self.setMinimumHeight(400)
-        self.setMaximumHeight(500)
+        self.setMaximumHeight(400)
         self.setMinimumWidth(400)
         self.setMaximumWidth(400)
 
@@ -113,7 +113,15 @@ class MainWindow(QMainWindow):
         """Обновление времени"""
         try:
             formatter_time = self.format_time(self.time_clock)
-            # TODO: Динамическое изменение размера
+
+            # Динамическое изменение размера окна
+            if formatter_time.count("\n") >= 4:
+                self.setMaximumHeight(500)
+                self.resize(400, 500)
+            else:
+                self.setMaximumWidth(400)
+                self.resize(400, 400)
+
             if self.time_clock > 0:
                 self.time_clock -= 1
                 self.time_label.setText(formatter_time)
