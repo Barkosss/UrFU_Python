@@ -13,10 +13,11 @@ class MainWindow(QMainWindow):
 
         # Окно
         self.setWindowTitle("Stopwatch")
-        self.setMinimumHeight(400)
-        self.setMaximumHeight(400)
-        self.setMinimumWidth(400)
-        self.setMaximumWidth(400)
+        self.setFixedSize(600, 400)
+        #self.setMinimumHeight(400)
+        #self.setMaximumHeight(400)
+        #self.setMinimumWidth(400)
+        #self.setMaximumWidth(600)
 
         # Поля
         self.time_clock = 60
@@ -83,6 +84,14 @@ class MainWindow(QMainWindow):
         self.button_reset.clicked.connect(self.button_reset_timer)
         self.button_reset.setFixedSize(100, 50)
 
+        self.button_notify_remove = QPushButton("🔕", self)
+        self.button_notify_remove.setStyleSheet(
+            "QPushButton { background-color: #822525; }"
+        )
+        self.button_notify_remove.clicked.connect(self.button_notify_delete)
+        self.button_notify_remove.setFixedSize(50, 50)
+        self.button_notify_remove.setVisible(False)
+
         # Предзаписанные кнопки
         self.button_start_one_minutes = QPushButton("1 Minutes")
         self.button_start_one_minutes.clicked.connect(lambda: self.button_start_timer(1))
@@ -97,6 +106,7 @@ class MainWindow(QMainWindow):
         self.button_start_fifteen_minutes.setFixedSize(100, 50)
 
         action_layout.addWidget(self.button_notify)
+        action_layout.addWidget(self.button_notify_remove)
         action_layout.addWidget(self.button_start)
         action_layout.addWidget(self.button_pause)
         action_layout.addWidget(self.button_reset)
@@ -220,14 +230,29 @@ class MainWindow(QMainWindow):
         try:
             # Открыть диалог выбора файла
             # TODO: Менять иконку и добавить название аудио
+            # TODO: Добавлять новую красную кнопку поверх установочной. Красная кнопка будет удалять аудио-файл
+            # TODO: Установочную кнопку менять цвет на синий
             file_path, _ = QFileDialog.getOpenFileName(self, "Выберите аудиофайл", "",
                                                        "Audio Files (*.mp3 *.wav *.ogg)")
             if file_path:
                 file_url = QUrl.fromLocalFile(file_path)
                 self.media_player.setSource(file_url)
+                self.button_notify.setStyleSheet("QPushButton {background-color: #2191FB;}")
+                self.button_notify_remove.setVisible(True)
 
         except Exception as err:
             print(f"ERROR | Notify load: {err}")
+
+    def button_notify_delete(self):
+        try:
+            self.button_notify_remove.setVisible(False)
+            self.button_notify.setStyleSheet("QPushButton {background-color: #3c3c3c;}")
+            self.media_player = QMediaPlayer()
+            self.audio_output = QAudioOutput()
+            self.media_player.setAudioOutput(self.audio_output)
+
+        except Exception as err:
+            print(f"ERROR | Notify remove: {err}")
 
 
 if __name__ == "__main__":
