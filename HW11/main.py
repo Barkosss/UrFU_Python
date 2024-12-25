@@ -6,6 +6,7 @@ from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtWidgets import (QApplication, QPushButton, QWidget, QVBoxLayout, QHBoxLayout,
                              QLabel, QMainWindow, QDateTimeEdit, QFileDialog, QSpinBox)
 
+
 class MainWindow(QMainWindow):
 
     def __init__(self):
@@ -13,7 +14,9 @@ class MainWindow(QMainWindow):
 
         # Окно
         self.setWindowTitle("Stopwatch")
-        self.setFixedSize(600, 400)
+        self.setMinimumWidth(400)
+        self.setMaximumWidth(400)
+        #self.setFixedSize(600, 400)
 
         # Поля
         self.time_clock = 60
@@ -89,37 +92,37 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.date_time)
 
         # Поля ввода
-        self.year_box = QSpinBox(self) # Год
+        self.year_box = QSpinBox(self)  # Год
         self.year_box.setRange(datetime.datetime.now().year, 3000)
         self.year_box.setValue(datetime.datetime.now().year)
         times_layout.addWidget(self.year_box)
 
-        self.month_box = QSpinBox(self) # Месяц
+        self.month_box = QSpinBox(self)  # Месяц
         self.month_box.setRange(0, 12)
         self.month_box.setValue(0)
         times_layout.addWidget(self.month_box)
 
-        self.week_box = QSpinBox(self) # Неделя
+        self.week_box = QSpinBox(self)  # Неделя
         self.week_box.setRange(0, 4)
         self.week_box.setValue(0)
         times_layout.addWidget(self.week_box)
 
-        self.day_box = QSpinBox(self) # Дни
+        self.day_box = QSpinBox(self)  # Дни
         self.day_box.setRange(0, 31)
         self.day_box.setValue(0)
         times_layout.addWidget(self.day_box)
 
-        self.hour_box = QSpinBox(self) # Часы
+        self.hour_box = QSpinBox(self)  # Часы
         self.hour_box.setRange(0, 24)
         self.hour_box.setValue(0)
         times_layout.addWidget(self.hour_box)
 
-        self.minute_box = QSpinBox(self) # Минуты
+        self.minute_box = QSpinBox(self)  # Минуты
         self.minute_box.setRange(0, 60)
         self.minute_box.setValue(0)
         times_layout.addWidget(self.minute_box)
 
-        self.second_box = QSpinBox(self) # Секунды
+        self.second_box = QSpinBox(self)  # Секунды
         self.second_box.setRange(0, 60)
         self.second_box.setValue(0)
         times_layout.addWidget(self.second_box)
@@ -200,7 +203,7 @@ class MainWindow(QMainWindow):
             # Динамическое изменение размера окна
             if formatter_time.count("\n") >= 4:
                 self.setMaximumHeight(500)
-                self.resize(400, 500)
+                self.resize(400, 1000)
             else:
                 self.setMaximumWidth(400)
                 self.resize(400, 400)
@@ -222,20 +225,20 @@ class MainWindow(QMainWindow):
         """Форматирование времени"""
         try:
             units = [
-                ("years", 31556952),
-                ("months", 2629746),
-                ("weeks", 604800),
-                ("days", 86400),
-                ("hours", 3600),
-                ("minutes", 60),
-                ("seconds", 1),
+                ("Years", 31556952),
+                ("Months", 2629746),
+                ("Weeks", 604800),
+                ("Days", 86400),
+                ("Hours", 3600),
+                ("Minutes", 60),
+                ("Seconds", 1),
             ]
 
             result = []
             for name, unit_seconds in units:
                 time = seconds // unit_seconds
                 if time:
-                    result.append(f"{time} {name}")
+                    result.append(f"{name}: {time}")
                 seconds %= unit_seconds
 
             return "\n".join(result)
