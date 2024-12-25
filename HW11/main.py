@@ -14,9 +14,10 @@ class MainWindow(QMainWindow):
 
         # Окно
         self.setWindowTitle("Stopwatch")
-        self.setMinimumWidth(400)
-        self.setMaximumWidth(400)
-        #self.setFixedSize(600, 400)
+        self.setMinimumHeight(400)
+        self.setMaximumHeight(400)
+        self.setMinimumWidth(800)
+        self.setMaximumWidth(800)
 
         # Поля
         self.time_clock = 60
@@ -29,8 +30,8 @@ class MainWindow(QMainWindow):
         self.timer.timeout.connect(self.update_timer)
 
         # Аудио
-        self.media_player = QMediaPlayer()
         self.audio_output = QAudioOutput()
+        self.media_player = QMediaPlayer()
         self.media_player.setAudioOutput(self.audio_output)
         self.button_notify = QPushButton("🔔")
         self.button_notify.setFixedSize(50, 50)
@@ -51,40 +52,16 @@ class MainWindow(QMainWindow):
 
         self.date_time = QDateTimeEdit(datetime.datetime.now())
         self.date_time.setDisplayFormat("dd-MM-yyyy HH:mm:ss")
-        self.date_time.setStyleSheet("""
-            QDateTimeEdit {
-                font-size: 24px;           /* Крупный текст */
-                color: white;             /* Белый текст */
-                background-color: black;  /* Чёрный фон */
-                border: 2px solid white;  /* Белая рамка */
-                border-radius: 8px;       /* Скруглённые углы */
-                padding: 10px;            /* Внутренний отступ */
-            }
-            QDateTimeEdit::up-button, QDateTimeEdit::down-button {
-                width: 30px;              /* Ширина кнопок */
-                background-color: white;  /* Белый фон кнопок */
-                border: none;             /* Убираем рамку */
-                color: black
-            }
-            QDateTimeEdit::up-arrow {
-                width: 20px;              /* Размер стрелки */
-                height: 20px;
-                color: black;
-                content: "^"; /* Задайте путь к иконке или используйте стандартную */
-            }
-            QDateTimeEdit::down-arrow {
-                width: 20px;              /* Размер стрелки */
-                height: 20px;
-                color: black;
-                content: "v"; /* Задайте путь к иконке или используйте стандартную */
-            }
-            QDateTimeEdit::up-button:hover, QDateTimeEdit::down-button:hover {
-                background-color: lightgray; /* Цвет кнопки при наведении */
-            }
-            QDateTimeEdit::drop-down {
-                border-left: 1px solid white; /* Разделительная линия между кнопками */
-            }
-        """)
+        self.date_time.setStyleSheet(
+            "@QDateTimeEdit { font-size: 24px; color: white; background-color: black; border: 2px solid white;"
+            "border-radius: 8px; padding: 10px; }"
+            "@QDateTimeEdit::up-button, QDateTimeEdit::down-button { width: 30px; background-color: white;"
+            "border: none; color: black }"
+            "@QDateTimeEdit::up-arrow { width: 20px; height: 20px; color: black; content: '^'; }"
+            "@QDateTimeEdit::down-arrow { width: 20px; height: 20px; color: black; content: 'v'; }"
+            "@QDateTimeEdit::up-button:hover, QDateTimeEdit::down-button:hover { background-color: lightgray; }"
+            "@QDateTimeEdit::drop-down { border-left: 1px solid white; }"
+        )
         self.date_time.setFixedHeight(60)  # Высота поля
         self.date_time.setMinimumWidth(300)  # Минимальная ширина поля
 
@@ -95,36 +72,64 @@ class MainWindow(QMainWindow):
         self.year_box = QSpinBox(self)  # Год
         self.year_box.setRange(datetime.datetime.now().year, 3000)
         self.year_box.setValue(datetime.datetime.now().year)
+        self.year_box.setStyleSheet(
+            "QSpinBox { font-size: 14px; font-weight: 700; height: 50px; width: 150px;"
+            "background-color: #131112; color: white; }"
+        )
         times_layout.addWidget(self.year_box)
 
         self.month_box = QSpinBox(self)  # Месяц
         self.month_box.setRange(0, 12)
         self.month_box.setValue(0)
+        self.month_box.setStyleSheet(
+            "QSpinBox { font-size: 14px; font-weight: 700; height: 50px; width: 150px;"
+            "background-color: #131112; color: white; }"
+        )
         times_layout.addWidget(self.month_box)
 
         self.week_box = QSpinBox(self)  # Неделя
         self.week_box.setRange(0, 4)
         self.week_box.setValue(0)
+        self.week_box.setStyleSheet(
+            "QSpinBox { font-size: 14px; font-weight: 700; height: 50px; width: 150px;"
+            "background-color: #131112; color: white; }"
+        )
         times_layout.addWidget(self.week_box)
 
         self.day_box = QSpinBox(self)  # Дни
         self.day_box.setRange(0, 31)
         self.day_box.setValue(0)
+        self.day_box.setStyleSheet(
+            "QSpinBox { font-size: 14px; font-weight: 700; height: 50px; width: 150px;"
+            "background-color: #131112; color: white; }"
+        )
         times_layout.addWidget(self.day_box)
 
         self.hour_box = QSpinBox(self)  # Часы
         self.hour_box.setRange(0, 24)
         self.hour_box.setValue(0)
+        self.hour_box.setStyleSheet(
+            "QSpinBox { font-size: 14px; font-weight: 700; height: 50px; width: 150px;"
+            "background-color: #131112; color: white; }"
+        )
         times_layout.addWidget(self.hour_box)
 
         self.minute_box = QSpinBox(self)  # Минуты
         self.minute_box.setRange(0, 60)
         self.minute_box.setValue(0)
+        self.minute_box.setStyleSheet(
+            "QSpinBox { font-size: 14px; font-weight: 700; height: 50px; width: 150px;"
+            "background-color: #131112; color: white; }"
+        )
         times_layout.addWidget(self.minute_box)
 
         self.second_box = QSpinBox(self)  # Секунды
         self.second_box.setRange(0, 60)
         self.second_box.setValue(0)
+        self.second_box.setStyleSheet(
+            "QSpinBox { font-size: 14px; font-weight: 700; height: 50px; width: 150px;"
+            "background-color: #131112; color: white; }"
+        )
         times_layout.addWidget(self.second_box)
 
         # Кнопки
@@ -202,11 +207,11 @@ class MainWindow(QMainWindow):
 
             # Динамическое изменение размера окна
             if formatter_time.count("\n") >= 4:
-                self.setMaximumHeight(500)
-                self.resize(400, 1000)
+                self.setMaximumHeight(600)
+                self.setMinimumHeight(600)
             else:
                 self.setMaximumWidth(400)
-                self.resize(400, 400)
+                self.setMinimumHeight(400)
 
             if self.time_clock >= 0:
                 self.time_clock -= 1
