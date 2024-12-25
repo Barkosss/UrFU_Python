@@ -6,7 +6,6 @@ from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtWidgets import (QApplication, QPushButton, QWidget, QVBoxLayout, QHBoxLayout,
                              QLabel, QMainWindow, QDateTimeEdit, QFileDialog, QSpinBox)
 
-# TODO: Добавить поля для ввода: Годов, месяцев, недель, дней, часов, минут и секунд
 class MainWindow(QMainWindow):
 
     def __init__(self):
@@ -36,6 +35,7 @@ class MainWindow(QMainWindow):
 
         # Виджеты
         layout = QVBoxLayout()
+        times_layout = QHBoxLayout()
         action_layout = QHBoxLayout()
         time_layout = QHBoxLayout()
         central_widget = QWidget()
@@ -92,37 +92,37 @@ class MainWindow(QMainWindow):
         self.year_box = QSpinBox(self) # Год
         self.year_box.setRange(datetime.datetime.now().year, 3000)
         self.year_box.setValue(datetime.datetime.now().year)
-        layout.addWidget(self.year_box)
+        times_layout.addWidget(self.year_box)
 
         self.month_box = QSpinBox(self) # Месяц
         self.month_box.setRange(0, 12)
         self.month_box.setValue(0)
-        layout.addWidget(self.month_box)
+        times_layout.addWidget(self.month_box)
 
         self.week_box = QSpinBox(self) # Неделя
         self.week_box.setRange(0, 4)
         self.week_box.setValue(0)
-        layout.addWidget(self.week_box)
+        times_layout.addWidget(self.week_box)
 
         self.day_box = QSpinBox(self) # Дни
         self.day_box.setRange(0, 31)
         self.day_box.setValue(0)
-        layout.addWidget(self.day_box)
+        times_layout.addWidget(self.day_box)
 
         self.hour_box = QSpinBox(self) # Часы
         self.hour_box.setRange(0, 24)
         self.hour_box.setValue(0)
-        layout.addWidget(self.hour_box)
+        times_layout.addWidget(self.hour_box)
 
         self.minute_box = QSpinBox(self) # Минуты
         self.minute_box.setRange(0, 60)
         self.minute_box.setValue(0)
-        layout.addWidget(self.minute_box)
+        times_layout.addWidget(self.minute_box)
 
         self.second_box = QSpinBox(self) # Секунды
         self.second_box.setRange(0, 60)
         self.second_box.setValue(0)
-        layout.addWidget(self.second_box)
+        times_layout.addWidget(self.second_box)
 
         # Кнопки
         self.button_start = QPushButton("Start")  # Начать таймер
@@ -187,6 +187,7 @@ class MainWindow(QMainWindow):
         time_layout.addWidget(self.button_start_five_minutes)
         time_layout.addWidget(self.button_start_fifteen_minutes)
 
+        layout.addLayout(times_layout)
         layout.addLayout(action_layout)
         layout.addLayout(time_layout)
         central_widget.setLayout(layout)
